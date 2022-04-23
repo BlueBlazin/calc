@@ -1,8 +1,27 @@
 #include "tokenizer.h"
 
-Tokenizer::Tokenizer(std::string filepath) : reader_(filepath) {}
+Tokenizer::Tokenizer(std::string filepath) : reader_(filepath), buffer_() {}
+
+Token& Tokenizer::Peek() {
+  if (buffer_.has_value()) {
+    return buffer_.value();
+  }
+
+  buffer_ = Next();
+
+  return buffer_.value();
+}
 
 Token Tokenizer::Next() {
+  if (buffer_.has_value()) {
+    // extract token out of optional
+    Token token = *std::move(buffer_);
+    // reset optional so it's empty again
+    buffer_.reset();
+
+    return token;
+  }
+
   ScanWhitespace();
 
   char start;

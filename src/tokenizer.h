@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cctype>
+#include <memory>
+#include <optional>
 #include <ostream>
 
 #include "reader.h"
@@ -21,6 +23,7 @@ struct Token {
 class Tokenizer {
  private:
   Reader reader_;
+  std::optional<Token> buffer_;
 
  public:
   Tokenizer(std::string filepath);
@@ -28,6 +31,8 @@ class Tokenizer {
   Token Next();
 
   bool HasNext();
+
+  Token& Peek();
 
  private:
   void ScanWhitespace();
