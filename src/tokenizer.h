@@ -13,6 +13,8 @@ enum class TokenType {
   Minus,
   Star,
   Slash,
+  LParen,
+  RParen,
 };
 
 struct Token {

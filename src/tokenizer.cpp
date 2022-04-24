@@ -47,6 +47,16 @@ Token Tokenizer::Next() {
           .type = TokenType::Slash,
           .value = NULL,
       };
+    case '(':
+      return Token{
+          .type = TokenType::LParen,
+          .value = NULL,
+      };
+    case ')':
+      return Token{
+          .type = TokenType::RParen,
+          .value = NULL,
+      };
     default:
       return ScanNumber(start);
   }

@@ -19,6 +19,11 @@ std::unique_ptr<Expr> Parser::PrimaryExpr() {
   switch (token.type) {
     case TokenType::Number:
       return std::unique_ptr<Expr>(new Number(token.value));
+    case TokenType::LParen: {
+      std::unique_ptr<Expr> expr = Parse();
+      tokenizer_.Next();
+      return expr;
+    }
     default:
       return std::unique_ptr<Expr>(nullptr);
   }
