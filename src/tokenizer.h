@@ -38,6 +38,8 @@ class Tokenizer {
   void ScanWhitespace();
 
   Token ScanNumber(char start);
+
+  std::string ScanDigits();
 };
 
 std::ostream& operator<<(std::ostream& os, const Token& token);

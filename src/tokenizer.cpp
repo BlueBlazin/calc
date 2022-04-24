@@ -55,14 +55,27 @@ Token Tokenizer::Next() {
 Token Tokenizer::ScanNumber(char start) {
   std::string n{start};
 
-  while (reader_.HasNext() && std::isdigit(reader_.Peek())) {
+  n += Tokenizer::ScanDigits();
+
+  if (reader_.HasNext() && reader_.Peek() == '.') {
     n += reader_.Next();
+    n += Tokenizer::ScanDigits();
   }
 
   return Token{
       .type = TokenType::Number,
       .value = std::stod(n),
   };
+}
+
+std::string Tokenizer::ScanDigits() {
+  std::string n = "";
+
+  while (reader_.HasNext() && std::isdigit(reader_.Peek())) {
+    n += reader_.Next();
+  }
+
+  return n;
 }
 
 bool Tokenizer::HasNext() {
