@@ -8,3 +8,4 @@ The plan is to make it increasingly complex by adding functionality over time.
 2. Implement a simple Tokenizer to convert source into tokens.
 3. Implement Parser with precedence climbing binary expression parsing.
 4. Implement a simple Eval function.
+5. Add support for real numbers.
