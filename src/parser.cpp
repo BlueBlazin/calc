@@ -32,7 +32,7 @@ std::unique_ptr<Expr> Parser::PrecedenceClimbing(std::unique_ptr<Expr> lhs,
 
   Token& next_token = tokenizer_.Peek();
 
-  while (Precedence(next_token) >= precedence) {
+  while (tokenizer_.HasNext() && Precedence(next_token) >= precedence) {
     Token op = tokenizer_.Next();
     std::unique_ptr<Expr> rhs = PrimaryExpr();
 
@@ -48,6 +48,8 @@ std::unique_ptr<Expr> Parser::PrecedenceClimbing(std::unique_ptr<Expr> lhs,
     lhs = std::unique_ptr<Expr>(
         new Binary(GetBinOp(op), std::move(lhs), std::move(rhs)));
   }
+
+  return lhs;
 }
 
 BinOp Parser::GetBinOp(Token& op) {
@@ -67,10 +69,10 @@ int Parser::Precedence(Token& token) {
   switch (token.type) {
     case TokenType::Minus:
     case TokenType::Plus:
-      return 1;
+      return 2;
     case TokenType::Star:
     case TokenType::Slash:
-      return 2;
+      return 3;
     default:
       return 0;
   }

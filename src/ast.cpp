@@ -36,7 +36,7 @@ std::ostream& operator<<(std::ostream& os, const Expr& expr) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Binary& expr) {
-  return os << *expr.left << " " << expr.op << " " << *expr.right;
+  return os << "(" << *expr.left << " " << expr.op << " " << *expr.right << ")";
 }
 
 std::ostream& operator<<(std::ostream& os, const Number& expr) {
