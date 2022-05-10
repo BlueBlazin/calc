@@ -3,9 +3,9 @@
 double Eval(std::unique_ptr<Expr>& ast) {
   switch (ast->get_type()) {
     case AstType::Binary:
-      return EvalBinary((Binary&)*ast);
+      return EvalBinary(static_cast<Binary&>(*ast));
     case AstType::Number:
-      return EvalNumber((Number&)*ast);
+      return EvalNumber(static_cast<Number&>(*ast));
   }
 }
 
